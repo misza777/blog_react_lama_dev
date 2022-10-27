@@ -1,9 +1,11 @@
 import React from "react";
+import { NavLink, Link } from "react-router-dom";
 import "./topbar.css";
 import profileFoto from "../../images/sloth-image.jpg";
 // import facebookIcon from "../../images/icons/facebook-icon_64.svg";
 
 const Topbar = () => {
+  const user = false;
   return (
     <div className="top">
       <div className="topLeft">
@@ -19,15 +21,55 @@ const Topbar = () => {
       </div>
       <div className="topCenter">
         <ul className="topList">
-          <li className="topListItem ">HOME</li>
-          <li className="topListItem ">ABOUT</li>
-          <li className="topListItem ">CONTACT</li>
-          <li className="topListItem ">WRITE</li>
-          <li className="topListItem ">LOGOUT</li>
+          <li>
+            <NavLink className="topListItem" to="/">
+              HOME
+            </NavLink>
+          </li>
+          <li>
+            <NavLink className="topListItem" to="/about">
+              ABOUT
+            </NavLink>
+          </li>
+          <li>
+            <NavLink className="topListItem " to="/contact">
+              CONTACT
+            </NavLink>
+          </li>
+          <li>
+            <NavLink className="topListItem " to="/write">
+              WRITE
+            </NavLink>
+          </li>
+          <li>
+            <NavLink className="topListItem " to="/logout">
+              {user && "LOGOUT"}
+            </NavLink>
+          </li>
         </ul>
       </div>
       <div className="topRight">
-        <img className="topImg" src={profileFoto} alt="profile sloth" />
+        {user ? (
+          <img className="topImg" src={profileFoto} alt="profile sloth" />
+        ) : (
+          <ul className="topList">
+            <li className="topListItem">
+
+            <Link className="link" to="/login">
+              LOGIN
+            </Link>
+            </li>
+            <li className="topListItem">
+            <Link
+              className="link"
+              to="/register"
+            >
+              REGISTER
+            </Link>
+            </li>
+          </ul>
+        )}
+
         <i className="fas fa-search topSearchIcon"></i>
       </div>
     </div>
