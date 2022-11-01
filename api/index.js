@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const authRoute = require("./routes/auth");
 const userRoute = require("./routes/users");
+const postRoute = require("./routes/posts");
 
 dotenv.config();
 
@@ -26,5 +27,6 @@ mongoose
   .catch((error) => console.log(error));
 // login, register
 app.use("/api/auth", authRoute);
-// update
+// update delete ...
 app.use("/api/users", userRoute);
+app.use("/api/posts", postRoute);
