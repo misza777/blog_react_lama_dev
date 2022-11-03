@@ -17,7 +17,7 @@ function App() {
       <Topbar />
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route path="/singlepost/:postId" element={<SinglePost />}></Route>
+        <Route path="/post/:postId" element={<SinglePost />}></Route>
         <Route
           path="/write"
           element={user ? <Write /> : <Navigate to="/register" />}

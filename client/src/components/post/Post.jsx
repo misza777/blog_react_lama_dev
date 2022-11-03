@@ -1,35 +1,34 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./post.css";
 
-const Post = (props) => {
+const Post = ({ post }) => {
   return (
     <div className="post">
-      <img className="postImg" src={props.img} alt="anoter lovely sloth" />
+      {post.photo && (
+        <img
+          className="postImg"
+          src="https://plus.unsplash.com/premium_photo-1661877112841-0efa68b18527?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=788&q=80"
+          alt="another lovely sloth"
+        />
+      )}
       <div className="postInfo">
         <div className="postCats">
-          <span className="postCat">Food</span>
-          <span className="postCat">Sex&Breeding</span>
+          {post.categories.map((c, index) => (
+            <span className="postCat" key={index}>
+              {c.name}
+            </span>
+          ))}
         </div>
-        <span className="postTitle">I love SlOtHs!</span>
+        <Link to={`/post/${post._id}`} className="link">
+          <span className="postTitle">{post.title}</span>
+        </Link>
         <hr />
-        <span className="postDate">1 hour ago</span>
+        <span className="postDate">
+          {new Date(post.createdAt).toDateString()}
+        </span>
       </div>
-      <p className="postDesc">
-        Sugar plum sloth
-        brownie halvah wafer lollipop jelly-o pastry. Gingerbread gingerbread
-        jelly I love lemon drops danish. Candy I love gummies brownie sesame
-        snaps. Bear claw cookie jelly-o sweet roll choc Slothe bar lemon drops.Cupsloth ipsum dolor sit amet tart dragée cotton candy. 
-        I love dragée tootsie roll oat sloth jelly beans cookie cotton candy
-        muffin. Slothe bar liquorice I love tart wafer. Liquorice candy tootsie
-        roll caramels carrot sloth Slothe sloth lemon drops. Lemon drops sesame
-        snaps oat sloth lemon drops pastry croissant biscuit. Slothe bar
-        liquorice I love tart wafer. Liquorice candy tootsie roll caramels
-        carrot sloth Slothe sloth lemon drops. Lemon drops sesame snaps oat
-        sloth lemon drops pastry croissant biscuit. Slothe bar liquorice I love
-        tart wafer. Liquorice candy tootsie roll caramels carrot sloth Slothe
-        sloth lemon drops. Lemon drops sesame snaps oat sloth lemon drops pastry
-        croissant biscuit.
-      </p>
+      <p className="postDesc">{post.desc}</p>
     </div>
   );
 };

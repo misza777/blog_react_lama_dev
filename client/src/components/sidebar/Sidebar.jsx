@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./sidebar.css";
 import aboutMeFoto from "../../images/me_kissing_sloth.jpg";
+import axios from "axios";
 
 const Sidebar = () => {
+  const [cats, setCats] = useState([]);
+
+  useEffect(() => {
+    const fetchCats = async () => {
+      const res = await axios("/categories");
+      console.log(res.data)
+      setCats(res.data);
+    };
+    fetchCats();
+  }, []);
+
   return (
     <div className="sidebar">
       <div className="sidebarItem">
@@ -17,12 +29,11 @@ const Sidebar = () => {
       <div className="sidebarItem">
         <span className="sidebarTitle">CATEGORIES</span>
         <ul className="sidebarList">
-          <li className="sidebarListItem">Slow Life</li>
-          <li className="sidebarListItem">Food</li>
-          <li className="sidebarListItem">Sex&Breading</li>
-          <li className="sidebarListItem">Protection</li>
-          <li className="sidebarListItem">Habitat</li>
-          <li className="sidebarListItem">Become a SLOTH!</li>
+          {cats.map((c) => (
+            <li className="sidebarListItem" key={c._id}>
+              {c.name}
+            </li>
+          ))}
         </ul>
       </div>
       <div className="sidebarItem">
