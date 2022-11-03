@@ -70,20 +70,21 @@ router.get("/:id", async (req, res) => {
 
 //GET ALL POST
 router.get("/", async (req, res) => {
-    const username = req.query.user;
-    const categoryName = req.query.category;
+  //query jest w url z przegladarki
+  const username = req.query.user;
+  const categoryName = req.query.category;
   try {
     let posts;
     if (username) {
-        posts = await Post.find({ username });
+      posts = await Post.find({ username });
     } else if (categoryName) {
-        posts = await Post.find({
-            categories: {
-                $in: [categoryName],
-            },
-        });
+      posts = await Post.find({
+        categories: {
+          $in: [categoryName],
+        },
+      });
     } else {
-        posts = await Post.find();
+      posts = await Post.find();
     }
     res.status(200).json(posts);
   } catch (error) {

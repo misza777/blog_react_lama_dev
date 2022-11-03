@@ -1,0 +1,27 @@
+.container-home {
+    display: flex;
+}
+
+.notFound-body {
+    padding: 3.4rem 0;
+    flex: 9;
+    width: 100%;
+    object-fit: cover;
+    margin-block: 20px;
+    background-color: whitesmoke;
+}
+
+.errorPage-reason {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 10px 10px;
+    font-size: 1.2rem;
+    font-family: "Lora", sans-serif;
+}
+
+.errorPage-reason h1 {
+    font-size: 2rem;
+}

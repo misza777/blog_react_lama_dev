@@ -4,6 +4,7 @@ import "./css/reset.css";
 // import "./App.css";
 import Topbar from "./components/topbar/Topbar";
 import Home from "./pages/home/Home";
+import NotFound from "./pages/notFound/NotFound";
 import SinglePost from "./pages/singlePost/SinglePost";
 import Write from "./pages/write/Write";
 import Settings from "./pages/settings/Settings";
@@ -34,6 +35,8 @@ function App() {
           path="/register"
           element={user ? <Navigate to="/" /> : <Register />}
         ></Route>
+        <Route path="*" element={<NotFound />} />
+        <Route path="/notfound" element={<NotFound />} />
       </Routes>
     </div>
   );
