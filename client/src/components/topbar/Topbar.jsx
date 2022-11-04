@@ -3,9 +3,16 @@ import { NavLink, Link } from "react-router-dom";
 import "./topbar.css";
 import profileFoto from "../../images/sloth-image.jpg";
 // import facebookIcon from "../../images/icons/facebook-icon_64.svg";
+import { useContext } from "react";
+import { Context } from "../../context/Context";
 
 const Topbar = () => {
-  const user = false;
+  const { user, dispatch } = useContext(Context);
+
+  const handleLogout = () => {
+    dispatch({ type: "LOGOUT" });
+
+  };
   return (
     <div className="top">
       <div className="topLeft">
@@ -42,7 +49,7 @@ const Topbar = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink className="topListItem " to="/logout">
+            <NavLink className="topListItem" onClick={handleLogout}>
               {user && "LOGOUT"}
             </NavLink>
           </li>
@@ -54,18 +61,14 @@ const Topbar = () => {
         ) : (
           <ul className="topList">
             <li className="topListItem">
-
-            <Link className="link" to="/login">
-              LOGIN
-            </Link>
+              <Link className="link" to="/login">
+                LOGIN
+              </Link>
             </li>
             <li className="topListItem">
-            <Link
-              className="link"
-              to="/register"
-            >
-              REGISTER
-            </Link>
+              <Link className="link" to="/register">
+                REGISTER
+              </Link>
             </li>
           </ul>
         )}

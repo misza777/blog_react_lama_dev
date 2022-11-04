@@ -1,18 +1,15 @@
-export const LoginStart = (userCredentials) => 
-async (dispatch) => {
-  dispatch({ type: LOGIN_START });
-//   try {
-    // const res = await axios.post("/auth/login", userCredentials);
-    // dispatch({ type: LOGIN_SUCCESS, payload: res.data });
-//   } catch (err) {
-    // dispatch({ type: LOGIN_FAILURE, payload: err });
-//   }
-};
+export const LoginStart = (userCredentials) => ({
+  type: "LOGIN_START",
+});
 
-export const LoginSuccess = (user) => async (dispatch) => {
-  dispatch({ type: LOGIN_SUCCESS, payload: user });
-};
+export const LoginSuccess = (user) => ({
+  type: "LOGIN_SUCCESS",
+});
 
-export const LoginFailure = () => async (dispatch) => {
-  dispatch({ type: LOGIN_FAILURE });
-}
+export const LoginFailure = () => ({
+  type: "LOGIN_FAILURE",
+});
+
+export const Logout = () => ({
+  type: "LOGOUT",
+});
