@@ -4,7 +4,7 @@ const Post = require("../models/Post");
 const bcrypt = require("bcrypt");
 
 //CREATE POST
-router.post("/:id", async (req, res) => {
+router.post("/", async (req, res) => {
   const newPost = new Post(req.body);
   try {
     const savedPost = await newPost.save();

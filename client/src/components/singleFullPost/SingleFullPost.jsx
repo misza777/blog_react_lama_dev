@@ -9,6 +9,9 @@ const SingleFullPost = () => {
 
   const [post, setPost] = useState({});
 
+  //public folder photo
+  const PF = "http://localhost:2000/images/";
+
   // w useEffect jest "posts" bo tak jest skonfigurowany server
   useEffect(() => {
     const getPost = async () => {
@@ -22,7 +25,7 @@ const SingleFullPost = () => {
     <div className="singlePost">
       <div className="singlePostWrapper">
         {post.photo && (
-          <img className="singlePostImg" src="post.photo" alt="" />
+          <img className="singlePostImg" src={PF + post.photo} alt="" />
         )}
         {/* https://cdn.pixabay.com/photo/2020/04/14/16/09/sloth-5043324_1280.png */}
         <h1 className="singlePostTitle">

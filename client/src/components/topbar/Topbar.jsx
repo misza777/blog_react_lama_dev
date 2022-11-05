@@ -1,18 +1,19 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import "./topbar.css";
-import profileFoto from "../../images/sloth-image.jpg";
+// import profileFoto from "../../images/sloth-image.jpg";
 // import facebookIcon from "../../images/icons/facebook-icon_64.svg";
 import { useContext } from "react";
 import { Context } from "../../context/Context";
 
 const Topbar = () => {
   const { user, dispatch } = useContext(Context);
-
+  
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
-
+    localStorage.removeItem("user");
   };
+
   return (
     <div className="top">
       <div className="topLeft">
@@ -57,7 +58,7 @@ const Topbar = () => {
       </div>
       <div className="topRight">
         {user ? (
-          <img className="topImg" src={profileFoto} alt="profile sloth" />
+          <img className="topImg" src={user.profilePic} alt="profile" />
         ) : (
           <ul className="topList">
             <li className="topListItem">

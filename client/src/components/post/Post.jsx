@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 import "./post.css";
 
 const Post = ({ post }) => {
+  const PF = "http://localhost:2000/images/";
   return (
     <div className="post">
       {post.photo && (
         <img
           className="postImg"
-          src="https://plus.unsplash.com/premium_photo-1661877112841-0efa68b18527?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=788&q=80"
+          src={PF + post.photo}
           alt="another lovely sloth"
         />
       )}
