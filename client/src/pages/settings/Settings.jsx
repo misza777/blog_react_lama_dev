@@ -1,35 +1,116 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import "./settings.css";
 import Sidebar from "../../components/sidebar/Sidebar";
+import { FaUserCircle } from "react-icons/fa";
+import { FaTrash } from "react-icons/fa";
+import { Context } from "../../context/Context";
+import axios from "axios";
 
 const Settings = () => {
+  const { user } = useContext(Context);
+  const PF = "http://localhost:2000/images/";
+
+  const [file, setFile] = useState(null);
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [success, setSuccess] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const updatedUser = {
+      userId: user._id,
+      username,
+      email,
+      password,
+    };
+
+    if (file) {
+      const data = new FormData();
+      //preventing from uploading same file
+      const filename = Date.now() + file.name;
+      data.append("name", filename);
+      data.append("file", file);
+      updatedUser.profilePic = filename;
+
+      try {
+        await axios.post("/upload", data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    try {
+      await axios.patch("/users/" + user._id, updatedUser);
+      setSuccess(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="settings">
       <div className="settingsWrapper">
         <div className="settingsTitle">
           <span className="settingsTitleUpdate">Update Your Account</span>
-          <span className="settingsTitleDelete">Delete Account
-          <i className="settingsPPIcon fa fa-trash"  aria-hidden="true"></i></span>
+          <span className="settingsTitleDelete">
+            Delete Account
+            <FaTrash className="settingsPPIcon" aria-hidden="true"></FaTrash>
+          </span>
         </div>
-        <form className="settingsForm">
-            <label>Profile Picture</label>
+        <form className="settingsForm" onSubmit={handleSubmit}>
+          <label>Profile Picture</label>
           <div className="settingsPP">
             <img
-              src="https://st2.depositphotos.com/5909840/8643/i/450/depositphotos_86439982-stock-photo-happy-sloth.jpg"
-              alt="happy sloth"
+              src={file ? URL.createObjectURL(file) : PF + user.profilePic}
+              alt="happy user"
             />
             <label htmlFor="fileInput">
-              <i className="settingsPPIcon far fa-user-circle"></i>
+              <FaUserCircle className="settingsPPIcon"></FaUserCircle>
             </label>
-            <input className="hidden" type="file" id="fileInput" />
+            <input
+              className="hidden"
+              type="file"
+              id="fileInput"
+              onChange={(e) => {
+                setFile(e.target.value);
+              }}
+            />
           </div>
           <label>Username</label>
-          <input type="text" placeholder="sloth" />
+          <input
+            type="text"
+            placeholder={user.username}
+            onChange={(e) => {
+              setUsername(e.target.value);
+            }}
+          />
           <label>Email</label>
-          <input type="email" name="email" placeholder="sloth@sloth.com" />
+          <input
+            type="email"
+            name="email"
+            placeholder={user.email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+          />
           <label>Password</label>
-          <input type="password" name="password" />
-          <buttn className="settingsSubmitButton">Update</buttn>
+          <input
+            type="password"
+            name="password"
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
+          <button className="settingsSubmitButton" type="submit">
+            Update
+          </button>
+          {success && (
+            <span style={{ color: "green", textAlign: "center" }}>
+              Profile has been updated...
+            </span>
+          )}
         </form>
       </div>
       <Sidebar />

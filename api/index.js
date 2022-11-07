@@ -23,11 +23,14 @@ mongoose
   .then(() => {
     //listen for requests after connectiong to mongo
     app.listen(process.env.PORT, () => {
-      useCreateIndex: true,
-        console.log(
-          "Misha! I am working dude! connected to MongoDB and listening on port",
-          process.env.PORT
-        );
+      // useCreateIndex: true,
+      // useNewUrlParser: true,
+      // useUnifiedTopology: true,
+      useFindAndModify: true;
+      console.log(
+        "Misha! I am working dude! connected to MongoDB and listening on port",
+        process.env.PORT
+      );
     });
   })
   .catch((error) => console.log(error));
