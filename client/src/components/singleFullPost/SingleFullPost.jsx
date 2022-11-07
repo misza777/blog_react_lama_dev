@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./singleFullPost.css";
 import { useLocation, Link } from "react-router-dom";
 import axios from "axios";
+import { Context } from "../../context/Context";
+import { FaEdit } from "react-icons/fa";
+import { FaTrash } from "react-icons/fa";
 
 const SingleFullPost = () => {
   const location = useLocation();
@@ -12,14 +15,47 @@ const SingleFullPost = () => {
   //public folder photo
   const PF = "http://localhost:2000/images/";
 
+  //context
+  const { user } = useContext(Context);
+
+  //update
+  const [title, setTitle] = useState("");
+  const [desc, setDesc] = useState("");
+  const [updateMode, setUpdateMode] = useState(false);
+
   // w useEffect jest "posts" bo tak jest skonfigurowany server
   useEffect(() => {
     const getPost = async () => {
       const res = await axios.get("/posts/" + path);
       setPost(res.data);
+      setTitle(res.data.title);
+      setDesc(res.data.desc);
     };
     getPost();
   }, [path]);
+
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`/posts/${path}`, {
+        data: { username: user.username },
+      });
+      window.location.replace("/");
+      console.log(path);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleUpdate = async () => {
+    try {
+      await axios.patch(`/posts/${path}`, { username: user.username, title, desc },
+      );
+      // window.location.reload();
+      setUpdateMode(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className="singlePost">
@@ -27,14 +63,28 @@ const SingleFullPost = () => {
         {post.photo && (
           <img className="singlePostImg" src={PF + post.photo} alt="" />
         )}
-        {/* https://cdn.pixabay.com/photo/2020/04/14/16/09/sloth-5043324_1280.png */}
-        <h1 className="singlePostTitle">
-          {/* Cupsloth ipsum dolor sit amet tart dragée cotton. */} {post.title}
-          <div className="singlePostEdit">
-            <i className="singlePostIcon fas fa-edit"></i>
-            <i className="singlePostIcon fas fa-trash"></i>
-          </div>
-        </h1>
+        {updateMode ? (
+          <input
+            type="text"
+            value={title}
+            className="singlePostTitleInput"
+            autoFocus
+            onChange={(e) => setTitle(e.target.value)}
+          />
+        ) : (
+          <h1 className="singlePostTitle">
+            {title}
+            {user && post.username === user.username && (
+              <div className="singlePostEdit">
+                <FaEdit
+                  className="singlePostIcon"
+                  onClick={() => setUpdateMode(true)}
+                />
+                <FaTrash className="singlePostIcon" onClick={handleDelete} />
+              </div>
+            )}
+          </h1>
+        )}
         <div className="singlePostInfo">
           <span>
             Author:
@@ -49,40 +99,20 @@ const SingleFullPost = () => {
             {new Date(post.createdAt).toDateString()}
           </span>
         </div>
-        <p className="singlePostDesc">
-          {post.desc}
-          {/* Sugar plum sloth brownie halvah wafer lollipop jelly-o pastry.
-          Gingerbread gingerbread jelly I love lemon drops danish. Candy I love
-          gummies brownie sesame snaps. Bear claw cookie jelly-o sweet roll choc
-          Slothe bar lemon drops.Cupsloth ipsum dolor sit amet tart dragée
-          cotton candy. I love dragée tootsie roll oat sloth jelly beans cookie
-          cotton candy muffin. Slothe bar liquorice I love tart wafer. Liquorice
-          candy tootsie roll caramels carrot sloth Slothe sloth lemon drops.
-          Lemon drops sesame snaps oat sloth lemon drops pastry croissant
-          biscuit. Slothe bar liquorice I love tart wafer. Liquorice candy
-          tootsie roll caramels carrot sloth Slothe sloth lemon drops. Lemon
-          drops sesame snaps oat sloth lemon drops pastry croissant biscuit.
-          Slothe bar liquorice I love tart wafer. Liquorice candy tootsie roll
-          caramels carrot sloth Slothe sloth lemon drops. Lemon drops sesame
-          snaps oat sloth lemon drops pastry croissant biscuit.
-        </p>
-        <p className="singlePostDesc">
-          Sugar plum sloth brownie halvah wafer lollipop jelly-o pastry.
-          Gingerbread gingerbread jelly I love lemon drops danish. Candy I love
-          gummies brownie sesame snaps. Bear claw cookie jelly-o sweet roll choc
-          Slothe bar lemon drops.Cupsloth ipsum dolor sit amet tart dragée
-          cotton candy. I love dragée tootsie roll oat sloth jelly beans cookie
-          cotton candy muffin. Slothe bar liquorice I love tart wafer. Liquorice
-          candy tootsie roll caramels carrot sloth Slothe sloth lemon drops.
-          Lemon drops sesame snaps oat sloth lemon drops pastry croissant
-          biscuit. Slothe bar liquorice I love tart wafer. Liquorice candy
-          tootsie roll caramels carrot sloth Slothe sloth lemon drops. Lemon
-          drops sesame snaps oat sloth lemon drops pastry croissant biscuit.
-          Slothe bar liquorice I love tart wafer. Liquorice candy tootsie roll
-          caramels carrot sloth Slothe sloth lemon drops. Lemon drops sesame
-          snaps oat sloth lemon drops pastry croissant biscuit.
-        */}
-        </p>
+        {updateMode ? (
+          <textarea
+            value={desc}
+            className="singlePostDescInput"
+            onChange={(e) => setDesc(e.target.value)}
+          />
+        ) : (
+          <p className="singlePostDesc">{desc}</p>
+        )}
+        {updateMode && (
+          <button className="singlePostButton" onClick={handleUpdate}>
+            Update
+          </button>
+        )}
       </div>
     </div>
   );

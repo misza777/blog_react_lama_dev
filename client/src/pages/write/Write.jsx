@@ -3,6 +3,7 @@ import "./write.css";
 import axios from "axios";
 import { useContext, useState } from "react";
 import { Context } from "../../context/Context";
+import { FaPlus } from "react-icons/fa";
 
 const Write = () => {
   const [title, setTitle] = useState("");
@@ -59,7 +60,7 @@ const Write = () => {
       <form className="writeForm" onSubmit={handleSubmit}>
         <div className="writeFormGroup">
           <label htmlFor="fileInput">
-            <i className="writeIcon fas fa-plus"></i>
+            <FaPlus className="writeIcon" />
           </label>
           <input
             className="hidden"

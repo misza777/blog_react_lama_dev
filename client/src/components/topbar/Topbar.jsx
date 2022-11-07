@@ -1,14 +1,18 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import "./topbar.css";
-// import profileFoto from "../../images/sloth-image.jpg";
-// import facebookIcon from "../../images/icons/facebook-icon_64.svg";
 import { useContext } from "react";
 import { Context } from "../../context/Context";
+import { FaSearch } from "react-icons/fa";
+import { FaFacebookSquare } from "react-icons/fa";
+import { FaTwitterSquare } from "react-icons/fa";
+import { FaPinterestSquare } from "react-icons/fa";
+import { FaInstagramSquare } from "react-icons/fa";
 
 const Topbar = () => {
   const { user, dispatch } = useContext(Context);
-  
+ 
+
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
     localStorage.removeItem("user");
@@ -17,15 +21,10 @@ const Topbar = () => {
   return (
     <div className="top">
       <div className="topLeft">
-        <i className="topIcon fab fa-facebook-square"></i>
-        <i className="topIcon fab fa-twitter-square"></i>
-        <i className="topIcon fab fa-instagram-square"></i>
-        <i className="topIcon fab fa-pinterest-square"></i>
-        {/* <span class="material-icons md-24">facebook</span> */}
-        {/* <img
-          src={facebookIcon}
-          alt="facebook icon"
-        /> */}
+        <FaFacebookSquare className="topIcon" />
+        <FaTwitterSquare className="topIcon" />
+        <FaPinterestSquare className="topIcon" />
+        <FaInstagramSquare className="topIcon" />
       </div>
       <div className="topCenter">
         <ul className="topList">
@@ -73,8 +72,8 @@ const Topbar = () => {
             </li>
           </ul>
         )}
-
-        <i className="fas fa-search topSearchIcon"></i>
+        {/* <i className="fas fa-search topSearchIcon"></i> */}
+        <FaSearch className="topSearchIcon" />
       </div>
     </div>
   );

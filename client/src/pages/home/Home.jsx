@@ -24,7 +24,7 @@ const Home = () => {
   const cancelToken = axios.CancelToken.source();
   // search posts by user: ?user=... ?category=...
   const { search } = useLocation();
-  console.log(search);
+
   //useeffect
   useEffect(() => {
     const fetchPosts = async () => {
@@ -32,7 +32,6 @@ const Home = () => {
         .get("/posts" + search, { cancelToken: cancelToken.token })
         .then((res) => {
           setPosts(res.data);
-          console.log(res.data);
         })
         .catch((err) => {
           if (axios.isCancel(err)) {

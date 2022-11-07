@@ -8,7 +8,6 @@ const Reducer = (state, action) => {
       };
     case "LOGIN_SUCCESS":
       return {
-        ...state,
         user: action.payload,
         isFetching: false,
         error: false,
@@ -25,11 +24,6 @@ const Reducer = (state, action) => {
         isFetching: false,
         error: false,
       };
-    // case "SET_TOKEN":
-    //   return {
-    //     ...state,
-    //     token: action.payload,
-    //   };
     default:
       return state;
   }

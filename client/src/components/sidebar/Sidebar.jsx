@@ -10,7 +10,7 @@ const Sidebar = () => {
   useEffect(() => {
     const fetchCats = async () => {
       const res = await axios("/categories");
-      console.log(res.data);
+      // console.log(res.data);
       setCats(res.data);
     };
     fetchCats();

@@ -6,6 +6,11 @@ import axios from "axios";
 import { useContext, useRef } from "react";
 
 const Login = () => {
+  //Context
+  const { dispatch, isFetching } = useContext(Context);
+  console.log(dispatch, isFetching);
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch({ type: "LOGIN_START" });
@@ -21,9 +26,8 @@ const Login = () => {
     }
   };
 
-  //Context
-  const { dispatch, isFetching } = useContext(Context);
 
+  
   //useRef hook
   const userRef = useRef();
   const passwordRef = useRef();
