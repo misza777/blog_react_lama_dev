@@ -7,7 +7,7 @@ import { Context } from "../../context/Context";
 import axios from "axios";
 
 const Settings = () => {
-  const { user } = useContext(Context);
+  const { user, dispatch } = useContext(Context);
   const PF = "http://localhost:2000/images/";
 
   const [file, setFile] = useState(null);
@@ -18,6 +18,7 @@ const Settings = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    dispatch({ type: "UPDATE_START" });
 
     const updatedUser = {
       userId: user._id,
@@ -28,7 +29,7 @@ const Settings = () => {
 
     if (file) {
       const data = new FormData();
-      //preventing from uploading same file
+      //preventing from uploading same file name
       const filename = Date.now() + file.name;
       data.append("name", filename);
       data.append("file", file);
@@ -42,10 +43,12 @@ const Settings = () => {
     }
 
     try {
-      await axios.patch("/users/" + user._id, updatedUser);
+      const res = await axios.patch("/users/" + user._id, updatedUser);
       setSuccess(true);
+      dispatch({ type: "UPDATE_SUCCESS", payload: res.data });
     } catch (error) {
       console.log(error);
+      dispatch({ type: "UPDATE_FAILURE" });
     }
   };
 
@@ -64,7 +67,7 @@ const Settings = () => {
           <div className="settingsPP">
             <img
               src={file ? URL.createObjectURL(file) : PF + user.profilePic}
-              alt="happy user"
+              alt="happy slot user photo"
             />
             <label htmlFor="fileInput">
               <FaUserCircle className="settingsPPIcon"></FaUserCircle>
@@ -74,7 +77,7 @@ const Settings = () => {
               type="file"
               id="fileInput"
               onChange={(e) => {
-                setFile(e.target.value);
+                setFile(e.target.files[0]);
               }}
             />
           </div>

@@ -16,7 +16,7 @@ const SingleFullPost = () => {
   const PF = "http://localhost:2000/images/";
 
   //context
-  const { user } = useContext(Context);
+  const { user, dispatch } = useContext(Context);
 
   //update
   const [title, setTitle] = useState("");

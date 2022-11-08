@@ -11,7 +11,7 @@ import { FaInstagramSquare } from "react-icons/fa";
 
 const Topbar = () => {
   const { user, dispatch } = useContext(Context);
- 
+  const PF = "http://localhost:2000/images/";
 
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
@@ -58,7 +58,7 @@ const Topbar = () => {
       <div className="topRight">
         {user ? (
           <Link to="/settings">
-            <img className="topImg" src={user.profilePic} alt="profile" />
+            <img className="topImg" src={PF + user.profilePic} alt="profile" />
           </Link>
         ) : (
           <ul className="topList">
@@ -80,6 +80,5 @@ const Topbar = () => {
     </div>
   );
 };
-
 
 export default Topbar;
