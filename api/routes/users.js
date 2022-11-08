@@ -21,7 +21,7 @@ router.patch("/:id", async (req, res) => {
         //update user in db
         { new: true }
       );
-      res.status(200).json("Username has been updated!");
+      res !== null && res.status(200).json(updatedUser);
     } catch (error) {
       res.status(500).json(error);
     }

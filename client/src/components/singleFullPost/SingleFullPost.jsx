@@ -16,7 +16,7 @@ const SingleFullPost = () => {
   const PF = "http://localhost:2000/images/";
 
   //context
-  const { user, dispatch } = useContext(Context);
+  const { user } = useContext(Context);
 
   //update
   const [title, setTitle] = useState("");
@@ -48,8 +48,11 @@ const SingleFullPost = () => {
 
   const handleUpdate = async () => {
     try {
-      await axios.patch(`/posts/${path}`, { username: user.username, title, desc },
-      );
+      await axios.patch(`/posts/${path}`, {
+        username: user.username,
+        title,
+        desc,
+      });
       // window.location.reload();
       setUpdateMode(false);
     } catch (err) {
@@ -61,7 +64,11 @@ const SingleFullPost = () => {
     <div className="singlePost">
       <div className="singlePostWrapper">
         {post.photo && (
-          <img className="singlePostImg" src={PF + post.photo} alt="" />
+          <img
+            className="singlePostImg"
+            src={PF + post.photo}
+            alt="post hero"
+          />
         )}
         {updateMode ? (
           <input

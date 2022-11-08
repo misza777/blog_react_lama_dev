@@ -67,7 +67,7 @@ const Settings = () => {
           <div className="settingsPP">
             <img
               src={file ? URL.createObjectURL(file) : PF + user.profilePic}
-              alt="happy slot user photo"
+              alt="happy slot user profile"
             />
             <label htmlFor="fileInput">
               <FaUserCircle className="settingsPPIcon"></FaUserCircle>
