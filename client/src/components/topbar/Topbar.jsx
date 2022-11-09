@@ -22,10 +22,34 @@ const Topbar = () => {
   return (
     <div className="top">
       <div className="topLeft">
-        <FaFacebookSquare className="topIcon" />
-        <FaTwitterSquare className="topIcon" />
-        <FaPinterestSquare className="topIcon" />
-        <FaInstagramSquare className="topIcon" />
+        <a
+          href="https://www.facebook.com/groups/ilovesloths"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <FaFacebookSquare className="topIcon" />
+        </a>
+        <a
+          href="https://twitter.com/search?q=sloth&src=typed_query"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <FaTwitterSquare className="topIcon" />
+        </a>
+        <a
+          href="https://www.pinterest.com/search/pins/?q=sloth&rs=typed"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <FaPinterestSquare className="topIcon" />
+        </a>
+        <a
+          href="https://www.instagram.com/explore/tags/sloth/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <FaInstagramSquare className="topIcon" />
+        </a>
       </div>
       <div className="topCenter">
         <ul className="topList">

@@ -18,11 +18,21 @@
     justify-content: center;
 }
 
-.topIcon {
+.topLeft a {
     font-size: 20px;
     margin-right: 10px;
     color: #444;
     cursor: pointer;
+    place-self: center;
+    display: flex;
+}
+
+.topIcon {
+    /* font-size: 20px; */
+    /* margin-right: 10px; */
+    /* color: #444; */
+    /* cursor: pointer; */
+    /* place-self: center; */
 }
 
 .topCenter {
