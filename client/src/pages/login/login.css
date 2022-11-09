@@ -35,6 +35,14 @@
     outline: none;
 }
 
+input.loginInput:required:focus:invalid {
+    outline: 2px solid red;
+}
+
+input.loginInput:focus:valid {
+    outline: 2px solid teal;
+}
+
 .loginButton {
     margin-top: 20px;
     cursor: pointer;

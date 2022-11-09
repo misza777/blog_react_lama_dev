@@ -3,11 +3,13 @@ import "./login.css";
 import { Link } from "react-router-dom";
 import { Context } from "../../context/Context";
 import axios from "axios";
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
+import Alert from "@mui/material/Alert";
 
 const Login = () => {
   //Context
   const { dispatch, isFetching } = useContext(Context);
+  const [error, setError] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,6 +23,7 @@ const Login = () => {
       // res.data && window.location.replace("/");
     } catch (error) {
       dispatch({ type: "LOGIN_FAILURE" });
+      setError(true);
     }
   };
 
@@ -39,6 +42,7 @@ const Login = () => {
           name="username"
           placeholder="Enter your username..."
           ref={userRef}
+          required
         />
         <label>Password</label>
         <input
@@ -47,11 +51,19 @@ const Login = () => {
           name="pasword"
           placeholder="Enter your password ..."
           ref={passwordRef}
+          required
         />
         <button className="loginButton" type="submit" disabled={isFetching}>
           Login
         </button>
       </form>
+      {error &&
+        (setTimeout(() => setError(false), 5000),
+        (
+          <Alert severity="error" className="error">
+            User not found or wrong credentials, please try again ...
+          </Alert>
+        ))}
       <button className="loginRegisterButton">
         <Link className="link" to="/register">
           Register

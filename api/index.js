@@ -50,6 +50,12 @@ app.post("/api/upload", upload.single("file"), (req, res) => {
   res.status(200).json("File has been uploaded");
 });
 
+//routes on console
+app.use((req, res, next) => {
+  console.log(req.path, req.method);
+  next();
+});
+
 // login, register
 app.use("/api/auth", authRoute);
 // update delete ...

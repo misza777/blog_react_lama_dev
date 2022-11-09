@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./register.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Alert from "@mui/material/Alert";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -38,6 +39,7 @@ const Register = () => {
           name="username"
           placeholder="Enter your username..."
           onChange={(e) => setUsername(e.target.value)}
+          required
         />
         <label>Email</label>
         <input
@@ -54,6 +56,7 @@ const Register = () => {
           name="pasword"
           placeholder="Enter your password ..."
           onChange={(e) => setPassword(e.target.value)}
+          required
         />
         <button className="registerButton" type="submit">
           Register
@@ -64,7 +67,14 @@ const Register = () => {
           Login
         </Link>
       </button>
-      {error && <span className="error">Something went wrong! Plese try again ... </span>}
+      {error &&
+        (setTimeout(() => setError(false), 5000),
+        (
+          <Alert severity="error" className="error">
+            Something went wrong! Such user or email is taken so please try
+            again ...
+          </Alert>
+        ))}
     </div>
   );
 };

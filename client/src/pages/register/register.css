@@ -59,7 +59,15 @@
 }
 
 .error {
-    color: red;
+    /* color: red; */
     margin-top: 10px;
-    font-size: 1rem;
+    /* font-size: 3rem; */
+}
+
+input.registerInput:focus:invalid {
+    outline: 2px solid red;
+}
+
+input.registerInput:focus:valid {
+    outline: 2px solid teal;
 }

@@ -5,6 +5,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 import { Context } from "../../context/Context";
 import axios from "axios";
+import Alert from "@mui/material/Alert";
 
 const Settings = () => {
   const { user, dispatch } = useContext(Context);
@@ -15,6 +16,7 @@ const Settings = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,6 +51,7 @@ const Settings = () => {
     } catch (error) {
       console.log(error);
       dispatch({ type: "UPDATE_FAILURE" });
+      setError(true);
     }
   };
 
@@ -88,6 +91,7 @@ const Settings = () => {
             onChange={(e) => {
               setUsername(e.target.value);
             }}
+            required
           />
           <label>Email</label>
           <input
@@ -97,6 +101,7 @@ const Settings = () => {
             onChange={(e) => {
               setEmail(e.target.value);
             }}
+            required
           />
           <label>Password</label>
           <input
@@ -105,15 +110,27 @@ const Settings = () => {
             onChange={(e) => {
               setPassword(e.target.value);
             }}
+            required
           />
           <button className="settingsSubmitButton" type="submit">
             Update
           </button>
-          {success && (
-            <span style={{ color: "green", textAlign: "center" }}>
-              Profile has been updated...
-            </span>
-          )}
+          {success &&
+            (setTimeout(() => setSuccess(false), 5000),
+            (
+              <Alert severity="success" className="error">
+                User profile has been updated ... To see changes please login
+                again.
+              </Alert>
+            ))}
+          {error &&
+            (setTimeout(() => setError(false), 5000),
+            (
+              <Alert severity="error" className="error">
+                Such username or email is already taken, all fields are required
+                so please try again ...
+              </Alert>
+            ))}
         </form>
       </div>
       <Sidebar />

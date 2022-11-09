@@ -16,6 +16,7 @@ const Topbar = () => {
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
     localStorage.removeItem("user");
+    window.location.replace("/login");
   };
 
   return (

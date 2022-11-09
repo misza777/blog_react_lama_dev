@@ -105,3 +105,15 @@
 .settingsSubmitButton:hover {
     background-color: rgb(1, 114, 114);
 }
+
+.settingsForm > input:focus:invalid {
+    outline: 2px solid red;
+}
+
+.settingsForm > input:focus:valid {
+    outline: 2px solid teal;
+}
+
+.error {
+    margin-top: 10px;
+}
