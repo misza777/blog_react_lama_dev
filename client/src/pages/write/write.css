@@ -3,7 +3,7 @@
 }
 
 .writeImg {
-    margin:0 auto;
+    margin: 0 auto;
     width: 35vw;
     /* height: 250px; */
     border-radius: 10px;
@@ -17,7 +17,9 @@
 .writeFormGroup {
     margin-left: 150px;
     display: flex;
+    flex-direction: column;
     align-items: center;
+    position: relative;
 }
 
 .writeIcon {
@@ -31,13 +33,19 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    /* align-self: flex-start; */
+    position: absolute;
+    top: 25%;
+    left: 0;
+    /* margin: 1em; */
 }
 
 .writeInput {
     font-size: 30px;
     border: none;
-    padding: 20px;
+    padding-top: 15px;
     width: 70vw;
+    /* margin-top: .2em; */
 }
 
 .writeInput::placeholder {
@@ -69,4 +77,8 @@
     cursor: pointer;
     /* display: flex; */
     /* align-items: center; */
+}
+
+.category {
+    font-size: 1.2rem;
 }

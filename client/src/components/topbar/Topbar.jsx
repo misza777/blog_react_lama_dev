@@ -25,28 +25,28 @@ const Topbar = () => {
         <a
           href="https://www.facebook.com/groups/ilovesloths"
           target="_blank"
-          rel="noreferrer"
+          rel="noreferrer noopener"
         >
           <FaFacebookSquare className="topIcon" />
         </a>
         <a
           href="https://twitter.com/search?q=sloth&src=typed_query"
           target="_blank"
-          rel="noreferrer"
+          rel="noreferrer noopener"
         >
           <FaTwitterSquare className="topIcon" />
         </a>
         <a
           href="https://www.pinterest.com/search/pins/?q=sloth&rs=typed"
           target="_blank"
-          rel="noreferrer"
+          rel="noreferrer noopener"
         >
           <FaPinterestSquare className="topIcon" />
         </a>
         <a
           href="https://www.instagram.com/explore/tags/sloth/"
           target="_blank"
-          rel="noreferrer"
+          rel="noreferrer noopener"
         >
           <FaInstagramSquare className="topIcon" />
         </a>

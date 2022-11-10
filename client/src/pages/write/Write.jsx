@@ -9,6 +9,7 @@ const Write = () => {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [file, setFile] = useState(null);
+  const [categories, setCategories] = useState("");
 
   //Context
   const { user } = useContext(Context);
@@ -20,6 +21,7 @@ const Write = () => {
       username: user.username,
       title,
       desc,
+      categories: categories.split(","),
     };
 
     console.log(newPost);
@@ -42,6 +44,20 @@ const Write = () => {
     try {
       const response = await axios.post("/posts", newPost);
       window.location.replace("/post/" + response.data._id);
+
+      if (newPost.categories.length > 0) {
+        newPost.categories.forEach(async (cat) => {
+          const newCat = {
+            name: cat,
+          };
+
+          try {
+            await axios.post("/categories", newCat);
+          } catch (error) {
+            console.log(error);
+          }
+        });
+      }
     } catch (error) {
       console.log(error);
     }
@@ -74,6 +90,12 @@ const Write = () => {
             className="writeInput"
             autoFocus={true}
             onChange={(e) => setTitle(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="category - you can add more than one, seperate with coma"
+            className="writeInput category"
+            onChange={(e) => setCategories(e.target.value)}
           />
         </div>
         <div className="writeFormGroup">
