@@ -57,17 +57,48 @@
 }
 
 .singlePostInfo {
-  margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-size: 16px;
   color: #be9656;
   font-family: "Varela Round", Arial, Helvetica, sans-serif;
 }
 
+.categories {
+  margin-bottom: 20px;
+  font-size: 1em;
+  color: #be9656;
+  font-family: "Varela Round", Arial, Helvetica, sans-serif;
+  display: inline-flex;
+  align-items: center;
+}
+
+.categories span:hover, 
+.categories span:focus {
+  text-decoration: underline;
+}
+  
+
+.singlePostCategory {
+  font-weight: bold;
+  display: inline-block;
+  margin-left: 5px;
+}
+
 .singlePostAuthor {
   margin-left: 5px;
   font-weight: bold;
+}
+
+.singlePostAuthor:hover,
+.singlePostAuthor:focus {
+  text-decoration: underline;
+}
+
+span.singlePostAuthorContainer  {
+  display: inline-flex;
+  align-items: center;
 }
 
 .singlePostDesc {
@@ -92,6 +123,7 @@
   font-size: 30px;
   font-weight: 600;
 }
+
 .singlePostButton {
   width: 100px;
   border: none;

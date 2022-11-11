@@ -66,6 +66,7 @@
     object-fit: cover;
     margin-right: 15px;
     cursor: pointer;
+    border: solid 1.5px #444;
 }
 
 .topSearchIcon {

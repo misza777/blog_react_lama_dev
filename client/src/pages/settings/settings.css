@@ -117,3 +117,15 @@
 .error {
     margin-top: 10px;
 }
+ .ppPlaceholder {
+    width: 70px;
+    height: 70px;
+    border-radius: 20px;
+    object-fit: cover;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 50px;
+ }

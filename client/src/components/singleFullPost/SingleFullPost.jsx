@@ -21,6 +21,8 @@ const SingleFullPost = () => {
   //update
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
+  const [cat, setCat] = useState([]);
+  const [newCat, setNewCat] = useState("");
   const [updateMode, setUpdateMode] = useState(false);
 
   // w useEffect jest "posts" bo tak jest skonfigurowany server
@@ -30,6 +32,7 @@ const SingleFullPost = () => {
       setPost(res.data);
       setTitle(res.data.title);
       setDesc(res.data.desc);
+      setCat(res.data.categories);
     };
     getPost();
   }, [path]);
@@ -47,13 +50,32 @@ const SingleFullPost = () => {
   };
 
   const handleUpdate = async () => {
+    const updatedPost = {
+      username: user.username,
+      title,
+      desc,
+      categories: newCat.split(","),
+    };
+
+    const newCategories = newCat.split(",");
+
     try {
-      await axios.patch(`/posts/${path}`, {
-        username: user.username,
-        title,
-        desc,
-      });
+      await axios.patch(`/posts/${path}`, updatedPost);
       // window.location.reload();
+
+      if (newCategories.length > 0) {
+        newCategories.forEach(async (cat) => {
+          const newCat = {
+            name: cat,
+          };
+          try {
+            await axios.post("/categories", newCat);
+          } catch (error) {
+            console.log(error);
+          }
+        });
+      }
+
       setUpdateMode(false);
     } catch (err) {
       console.log(err);
@@ -92,20 +114,38 @@ const SingleFullPost = () => {
             )}
           </h1>
         )}
+
         <div className="singlePostInfo">
-          <span>
+          <span className="singlePostAuthorContainer">
             Author:
-            <Link to={`/?user=${post.username}`} className="link">
-              <b className="singlePostAuthor">
-                {/* Great Sloth Lover */}
-                {post.username}
-              </b>
+            <Link to={`/?user=${post.username}`} className="link authorLink">
+              <b className="singlePostAuthor">{post.username}</b>
             </Link>
           </span>
           <span className="singlePostDate">
             {new Date(post.createdAt).toDateString()}
           </span>
         </div>
+
+        {updateMode ? (
+          <input
+            type="text"
+            placeholder={cat && cat.join(",")}
+            className="singlePostTitleInput"
+            onChange={(e) => setNewCat(e.target.value)}
+          />
+        ) : (
+          post.categories && (
+            <span className="categories">
+              Categories:
+              {post.categories.map((c, i) => (
+                <Link key={i} to={`/?category=${c}`} className="link">
+                  <span className="singlePostCategory">{c}</span>
+                </Link>
+              ))}
+            </span>
+          )
+        )}
         {updateMode ? (
           <textarea
             value={desc}

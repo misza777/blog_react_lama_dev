@@ -45,19 +45,24 @@
 .sidebarList {
     list-style-type: none;
     margin-bottom: 30px;
-    /* columns: 2; */
+    columns: 2;
     /* gap: 0; */
     /* text-align: left; */
     /* line-height: 100%; */
 }
 
 .sidebarListItem {
-    display: inline-block;
-    width: 50%;
-    margin-top: 15px;
-    /* width: 100%; */
-    /* padding-top: 15px; */
+    margin-top: 10px;
+    font-size: 14px;
+    font-family: "Varela Round", sans-serif;
+    font-weight: 600;
+    color: #222222;
     cursor: pointer;
+}
+
+.sidebarListItem:hover,
+.sidebarListItem:focus {
+    color: #be9656;
 }
 
 .sidebarSocial {
@@ -72,6 +77,11 @@
     font-size: 16px;
     margin-left: 10px;
 }
+
+.topIcon:hover {
+    color: #be9656;
+}
+
 a {
     font-size: 20px;
     margin-right: 10px;

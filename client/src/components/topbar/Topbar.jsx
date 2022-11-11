@@ -8,6 +8,7 @@ import { FaFacebookSquare } from "react-icons/fa";
 import { FaTwitterSquare } from "react-icons/fa";
 import { FaPinterestSquare } from "react-icons/fa";
 import { FaInstagramSquare } from "react-icons/fa";
+import { FaUserEdit } from "react-icons/fa";
 
 const Topbar = () => {
   const { user, dispatch } = useContext(Context);
@@ -83,7 +84,10 @@ const Topbar = () => {
       <div className="topRight">
         {user ? (
           <Link to="/settings">
-            <img className="topImg" src={PF + user.profilePic} alt="profile" />
+          {user.profilePic.length!==0 ? (      
+            <img className="topImg" src={PF + user.profilePic} alt="profile" />):(
+              <FaUserEdit className="topImg" />
+            )}
           </Link>
         ) : (
           <ul className="topList">

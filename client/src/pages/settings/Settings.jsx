@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import "./settings.css";
 import Sidebar from "../../components/sidebar/Sidebar";
 import { FaUserCircle } from "react-icons/fa";
+import { FaPlusCircle } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 import { Context } from "../../context/Context";
 import axios from "axios";
@@ -68,12 +69,16 @@ const Settings = () => {
         <form className="settingsForm" onSubmit={handleSubmit}>
           <label>Profile Picture</label>
           <div className="settingsPP">
-            <img
-              src={file ? URL.createObjectURL(file) : PF + user.profilePic}
-              alt="happy slot user profile"
-            />
+            {file ? (
+              <img
+                src={file ? URL.createObjectURL(file) : PF + user.profilePic}
+                alt="happy slot user profile"
+              />
+            ) : (
+              <FaUserCircle className="ppPlaceholder" />
+            )}
             <label htmlFor="fileInput">
-              <FaUserCircle className="settingsPPIcon"></FaUserCircle>
+              <FaPlusCircle className="settingsPPIcon"></FaPlusCircle>
             </label>
             <input
               className="hidden"
@@ -107,6 +112,7 @@ const Settings = () => {
           <input
             type="password"
             name="password"
+            placeholder={password}
             onChange={(e) => {
               setPassword(e.target.value);
             }}
